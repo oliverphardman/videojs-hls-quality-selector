@@ -73,7 +73,7 @@ export default class ConcreteButton extends VideoJsButtonClass {
     this.items = this.createItems();
 
     if (this.items) {
-            // Add menu items to the menu
+      // Add menu items to the menu
       for (let i = 0; i < this.items.length; i++) {
         menu.addItem(this.items[i]);
       }

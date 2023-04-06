@@ -21,26 +21,16 @@ class HlsQualitySelectorPlugin {
    * @param {Player} player - The videojs player instance.
    * @param {Object} options - The plugin options.
    */
+
   constructor(player, options) {
     this.player = player;
     this.config = options;
 
-    // If there is quality levels plugin and the HLS tech exists
-    // then continue.
-    if (this.player.qualityLevels && this.getHls()) {
-      // Create the quality button.
+    // If the quality levels plugin is installed, then continue.
+    if (this.player.qualityLevels) {
       this.createQualityButton();
       this.bindPlayerEvents();
     }
-  }
-
-  /**
-   * Returns HLS Plugin
-   *
-   * @return {*} - videojs-hls-contrib plugin.
-   */
-  getHls() {
-    return this.player.tech({ IWillNotUseThisInPlugins: true }).hls;
   }
 
   /**
@@ -54,7 +44,6 @@ class HlsQualitySelectorPlugin {
    * Adds the quality menu button to the player control bar.
    */
   createQualityButton() {
-
     const player = this.player;
 
     this._qualityButton = new ConcreteButton(player);
@@ -103,7 +92,6 @@ class HlsQualitySelectorPlugin {
    * Executed when a quality level is added from HLS playlist.
    */
   onAddQualityLevel() {
-
     const player = this.player;
     const qualityList = player.qualityLevels();
     const levels = qualityList.levels_ || [];
@@ -225,7 +213,7 @@ const onPlayerReady = (player, options) => {
  */
 const hlsQualitySelector = function(options) {
   this.ready(() => {
-    onPlayerReady(this, videojs.mergeOptions(defaults, options));
+    onPlayerReady(this, videojs.obj.merge(defaults, options));
   });
 };
 
